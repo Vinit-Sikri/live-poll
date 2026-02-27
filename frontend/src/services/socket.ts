@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
 
-export const socket = io("https://live-polling-system-dema.onrender.com", {
+export const socket = io("https://live-poll-95x0.onrender.com", {
   autoConnect: false,
 });
