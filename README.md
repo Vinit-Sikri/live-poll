@@ -22,29 +22,28 @@
     <td align="center" width="50%">
       <strong>🧑‍🏫 Teacher — Poll Creation</strong><br/>
       <sub><a href="https://live-poll-front.onrender.com/teacher">live-poll-front.onrender.com/teacher</a></sub><br/><br/>
-      <img src="screenshots/teacher-dashboard.png" alt="Teacher Dashboard — Poll Creation" width="100%"/>
+      <img width="1456" height="819" alt="image" src="https://github.com/user-attachments/assets/946a94e9-c81a-489b-9d07-c8cb4d35fceb" />
     </td>
     <td align="center" width="50%">
       <strong>🧑‍🎓 Student — Answer Question</strong><br/>
       <sub><a href="https://live-poll-front.onrender.com/vote">live-poll-front.onrender.com/vote</a></sub><br/><br/>
-      <img src="screenshots/student-vote.png" alt="Student Vote Screen with Timer" width="100%"/>
+      <img width="1456" height="819" alt="image" src="https://github.com/user-attachments/assets/c719810c-7b4e-4b96-a30c-1627789fd104" />
+
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <strong>📊 Live Question Results</strong><br/>
       <sub><a href="https://live-poll-front.onrender.com/results">live-poll-front.onrender.com/results</a></sub><br/><br/>
-      <img src="screenshots/results.png" alt="Live Poll Results with Correct Answer Highlighted" width="100%"/>
+      <img width="1456" height="819" alt="image" src="https://github.com/user-attachments/assets/bf49e91c-2e29-4a79-8af1-782d7eac8627" />
     </td>
     <td align="center" width="50%">
       <strong>📜 Poll History</strong><br/>
       <sub><a href="https://live-poll-front.onrender.com/history">live-poll-front.onrender.com/history</a></sub><br/><br/>
-      <img src="screenshots/poll-history.png" alt="Poll History with All Past Questions" width="100%"/>
+      <img width="1456" height="819" alt="image" src="https://github.com/user-attachments/assets/f0469e47-3dab-4598-95c4-00f79d98dbe7" />
     </td>
   </tr>
 </table>
-
-> 💡 **To add screenshots:** Create a `screenshots/` folder in the repo root, and save images as `teacher-dashboard.png`, `student-vote.png`, `results.png`, and `poll-history.png`.
 
 ---
 
@@ -249,9 +248,5 @@ This project was built as part of the **Intervue.io SDE Intern Assignment**.
 ---
 
 <div align="center">
-
-Built with ❤️ by **[Vinit Sikri](https://github.com/Vinit-Sikri)**
-
-⭐ Star this repo if you found it helpful!
 
 </div>
