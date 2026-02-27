@@ -194,20 +194,9 @@ Both frontend and backend are hosted on **Render**.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/polls` | Fetch all past polls (Poll History) |
-| `GET` | `/api/polls/active` | Get current active poll state (for recovery) |
-| `POST` | `/api/polls` | Create a new poll |
-
-### Socket Events
-
-| Event | Direction | Description |
-|---|---|---|
-| `poll:start` | Server → Client | Broadcast new poll to all students |
-| `poll:vote` | Client → Server | Student submits an answer |
-| `poll:results` | Server → Client | Live result update pushed to all |
-| `poll:end` | Server → Client | Poll timer expired, show results |
-| `student:join` | Client → Server | Student registers their name |
-
+| `GET` | `/history` | Fetch all past polls (Poll History) |
+| `GET` | `/results` | For getting poll results |
+| `POST` | `/teacher` | Create a new poll |
 ---
 
 ## 📋 Environment Variables
@@ -216,29 +205,7 @@ Both frontend and backend are hosted on **Render**.
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-# or
-DATABASE_URL=your_postgres_connection_string
-CLIENT_URL=http://localhost:5173
 ```
-
-### Client `.env`
-```env
-VITE_API_URL=http://localhost:5000
-```
-
----
-
-## 🧪 Key Technical Decisions
-
-**Why is the server the timer authority?**
-Each client receives the poll's `startTime` from the server on join/reconnect and calculates remaining time as `duration - (now - startTime)`. This ensures late joiners see an accurate countdown without any per-tick server push.
-
-**How is double-voting prevented?**
-Vote submissions are validated server-side against a `votes` collection keyed on `(pollId, studentId)`. Even if a client spams the socket event or manipulates client-side state, the server rejects any duplicate vote at the database level.
-
-**How does state recovery work?**
-On page load/refresh, the client calls `GET /api/polls/active`. If a poll is live, the server returns full state including `startTime`, options, and existing votes — and the UI reconstructs itself from that snapshot.
-
 ---
 
 ## 📄 License
