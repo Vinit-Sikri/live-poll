@@ -17,25 +17,34 @@
 
 ## 📸 Screenshots
 
-> **Teacher Dashboard — Create Poll**
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <strong>🧑‍🏫 Teacher — Poll Creation</strong><br/>
+      <sub><a href="https://live-poll-front.onrender.com/teacher">live-poll-front.onrender.com/teacher</a></sub><br/><br/>
+      <img src="screenshots/teacher-dashboard.png" alt="Teacher Dashboard — Poll Creation" width="100%"/>
+    </td>
+    <td align="center" width="50%">
+      <strong>🧑‍🎓 Student — Answer Question</strong><br/>
+      <sub><a href="https://live-poll-front.onrender.com/vote">live-poll-front.onrender.com/vote</a></sub><br/><br/>
+      <img src="screenshots/student-vote.png" alt="Student Vote Screen with Timer" width="100%"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <strong>📊 Live Question Results</strong><br/>
+      <sub><a href="https://live-poll-front.onrender.com/results">live-poll-front.onrender.com/results</a></sub><br/><br/>
+      <img src="screenshots/results.png" alt="Live Poll Results with Correct Answer Highlighted" width="100%"/>
+    </td>
+    <td align="center" width="50%">
+      <strong>📜 Poll History</strong><br/>
+      <sub><a href="https://live-poll-front.onrender.com/history">live-poll-front.onrender.com/history</a></sub><br/><br/>
+      <img src="screenshots/poll-history.png" alt="Poll History with All Past Questions" width="100%"/>
+    </td>
+  </tr>
+</table>
 
-<!-- Screenshot: Teacher poll creation screen -->
-![Teacher Dashboard](./screenshots/teacher-dashboard.png)
-
-> **Live Results View**
-
-<!-- Screenshot: Real-time poll results with percentage bars -->
-![Live Results](./screenshots/live-results.png)
-
-> **Student — Answer Question**
-
-<!-- Screenshot: Student answering a poll question with timer -->
-![Student View](./screenshots/student-view.png)
-
-> **Poll History**
-
-<!-- Screenshot: Teacher viewing past poll results -->
-![Poll History](./screenshots/poll-history.png)
+> 💡 **To add screenshots:** Create a `screenshots/` folder in the repo root, and save images as `teacher-dashboard.png`, `student-vote.png`, `results.png`, and `poll-history.png`.
 
 ---
 
@@ -47,23 +56,36 @@
 
 ---
 
+## 🔗 Live Pages
+
+| Page | URL | Description |
+|---|---|---|
+| 🧑‍🏫 Teacher Dashboard | [/teacher](https://live-poll-front.onrender.com/teacher) | Create polls & manage sessions |
+| 🧑‍🎓 Student Vote | [/vote](https://live-poll-front.onrender.com/vote) | Answer active poll questions |
+| 📊 Live Results | [/results](https://live-poll-front.onrender.com/results) | Real-time result visualization |
+| 📜 Poll History | [/history](https://live-poll-front.onrender.com/history) | View all past polls from DB |
+
+---
+
 ## 🚀 Features
 
 ### 👩‍🏫 Teacher (Admin)
-- Create polls with custom questions, options, and time limits
+- Create polls with custom questions, multiple options, and a **configurable time limit** (dropdown)
+- Mark a **correct answer** per poll for instant result highlighting
 - View **real-time live results** as students vote (e.g., "Option A: 40%, Option B: 60%")
-- Access **full poll history** with aggregate results (fetched from DB, not local storage)
+- Access **full poll history** with aggregate results — fetched from DB, never local storage
 - Ask a new question only when all students have answered or no poll is active
 
 ### 🧑‍🎓 Student (User)
 - Enter a unique name on first visit (scoped per tab/session)
 - Receive questions **instantly** via WebSocket when teacher posts them
-- **Server-synchronized timer** — late joiners see the correct remaining time
-- Submit a single answer per question; view live results after submission
+- **Server-synchronized countdown timer** shown in real time (red countdown top-right)
+- Submit a single answer per question; view live results with correct answer highlighted after submission
+- **Chat popup** available for student-teacher interaction
 
 ### 🔒 Resilience & Integrity
 - **State recovery** — refresh mid-poll and the UI resumes exactly where it left off
-- **Race condition protection** — double-voting is prevented server-side
+- **Race condition protection** — double-voting is prevented server-side regardless of client manipulation
 - **Optimistic UI** — instant feedback with graceful error rollback
 - **Error handling** — app stays functional even when DB is temporarily unreachable
 
@@ -85,25 +107,27 @@
 
 ```
 live-poll/
-├── client/                    # React Frontend
+├── client/                       # React Frontend
 │   ├── src/
-│   │   ├── components/        # UI Components
+│   │   ├── components/           # Reusable UI Components
 │   │   ├── hooks/
-│   │   │   ├── useSocket.ts   # Socket.io abstraction
-│   │   │   └── usePollTimer.ts # Server-synced timer logic
+│   │   │   ├── useSocket.ts      # Socket.io abstraction hook
+│   │   │   └── usePollTimer.ts   # Server-synced countdown timer
 │   │   ├── pages/
-│   │   │   ├── Teacher/       # Teacher dashboard & poll creation
-│   │   │   └── Student/       # Student onboarding & voting
-│   │   └── context/           # Global state (Context API / Redux)
+│   │   │   ├── Teacher/          # Poll creation dashboard (/teacher)
+│   │   │   ├── Student/          # Vote page (/vote)
+│   │   │   ├── Results/          # Live results view (/results)
+│   │   │   └── History/          # Poll history view (/history)
+│   │   └── context/              # Global state (Context API / Redux)
 │
-├── server/                    # Node.js + Express Backend
-│   ├── controllers/           # Request handlers
+├── server/                       # Node.js + Express Backend
+│   ├── controllers/              # Request handlers (thin layer)
 │   ├── services/
-│   │   └── PollService.ts     # Core business logic & DB interaction
+│   │   └── PollService.ts        # Core business logic & DB interaction
 │   ├── socket/
-│   │   └── PollSocketHandler.ts # WebSocket event handlers
-│   ├── models/                # DB schemas (Poll, Option, Vote)
-│   └── routes/                # REST API endpoints
+│   │   └── PollSocketHandler.ts  # WebSocket event routing
+│   ├── models/                   # DB schemas (Poll, Option, Vote)
+│   └── routes/                   # REST API endpoints
 ```
 
 ### Design Patterns
@@ -144,8 +168,10 @@ npm run dev
 
 ### 4. Open in Browser
 ```
-Teacher: http://localhost:5173/teacher
-Student: http://localhost:5173/student
+Teacher:  http://localhost:5173/teacher
+Student:  http://localhost:5173/vote
+Results:  http://localhost:5173/results
+History:  http://localhost:5173/history
 ```
 
 ---
@@ -159,18 +185,18 @@ Both frontend and backend are hosted on **Render**.
 | 🖥️ Frontend | [https://live-poll-front.onrender.com](https://live-poll-front.onrender.com/) |
 | 🔌 Backend | Deployed on Render (internal service) |
 
-> ⚠️ **Note:** The app is hosted on Render's free tier — the backend may take ~30 seconds to spin up on the first request after inactivity.
+> ⚠️ **Note:** Hosted on Render's free tier — the backend may take ~30 seconds to spin up after inactivity. Please wait a moment on first load.
 
 ---
 
-## 🔌 API Reference
+## 🔌 API & Socket Reference
 
 ### REST Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/polls` | Fetch all past polls |
-| `GET` | `/api/polls/active` | Get current active poll state |
+| `GET` | `/api/polls` | Fetch all past polls (Poll History) |
+| `GET` | `/api/polls/active` | Get current active poll state (for recovery) |
 | `POST` | `/api/polls` | Create a new poll |
 
 ### Socket Events
@@ -179,9 +205,9 @@ Both frontend and backend are hosted on **Render**.
 |---|---|---|
 | `poll:start` | Server → Client | Broadcast new poll to all students |
 | `poll:vote` | Client → Server | Student submits an answer |
-| `poll:results` | Server → Client | Live result update |
-| `poll:end` | Server → Client | Poll timer expired |
-| `student:join` | Client → Server | Student registers name |
+| `poll:results` | Server → Client | Live result update pushed to all |
+| `poll:end` | Server → Client | Poll timer expired, show results |
+| `student:join` | Client → Server | Student registers their name |
 
 ---
 
@@ -206,13 +232,13 @@ VITE_API_URL=http://localhost:5000
 ## 🧪 Key Technical Decisions
 
 **Why is the server the timer authority?**
-Each client receives the poll's `startTime` from the server and calculates remaining time as `duration - (now - startTime)`. This ensures late joiners see accurate countdowns without any server push needed per-tick.
+Each client receives the poll's `startTime` from the server on join/reconnect and calculates remaining time as `duration - (now - startTime)`. This ensures late joiners see an accurate countdown without any per-tick server push.
 
 **How is double-voting prevented?**
 Vote submissions are validated server-side against a `votes` collection keyed on `(pollId, studentId)`. Even if a client spams the socket event or manipulates client-side state, the server rejects any duplicate vote at the database level.
 
 **How does state recovery work?**
-On page load/refresh, the client calls `GET /api/polls/active`. If a poll is live, the server returns the full state including `startTime`, options, and existing votes — and the UI reconstructs itself accordingly.
+On page load/refresh, the client calls `GET /api/polls/active`. If a poll is live, the server returns full state including `startTime`, options, and existing votes — and the UI reconstructs itself from that snapshot.
 
 ---
 
