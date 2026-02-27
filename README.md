@@ -153,7 +153,6 @@ cd live-poll
 ```bash
 cd server
 npm install
-cp .env.example .env    # Add your DB connection string and PORT
 npm run dev
 ```
 
@@ -161,7 +160,6 @@ npm run dev
 ```bash
 cd client
 npm install
-cp .env.example .env    # Add VITE_API_URL pointing to your backend
 npm run dev
 ```
 
